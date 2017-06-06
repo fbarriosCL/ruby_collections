@@ -1,57 +1,44 @@
+require_relative 'computer'
 require 'minitest/benchmark'
 require 'minitest/autorun'
 require 'set'
 
-class ComputerTest
-  def add(computers)
-    database = []
-    computers.each{ |computer| database << computer }
-  end
-end
-
-class DesktopTest < ComputerTest
-end
-
-class NotebookTest < ComputerTest
-end
-
 class BenchmarkTest < Minitest::Benchmark
   def setup
-    @set      = Set.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
-    @hash     = Hash.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
-    @array    = Array.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
-    @tree_set = SortedSet.new(['HP', 'Acer', 'Apple', 'HP', 'HP'])
+    @brands   = ['HP', 'Acer', 'Apple', 'HP', 'HP']
+    @desktop  = Desktop.new
+    @notebook = Notebook.new
+    @set      = Set.new(@brands)
+    @hash     = Hash.new(@brands)
+    @array    = Array.new(@brands)
+    @tree_set = SortedSet.new(@brands)
   end
 
   def bench_set
-    assert_performance 0.99 do |n|
-      n.times do
-        DesktopTest.new.add(@set)
-      end
+    validation = proc {|x|}
+    assert_performance validation do |n|
+      @desktop.add(@set)
     end
   end
 
   def bench_hash
-    assert_performance 0.99 do |n|
-      n.times do
-        DesktopTest.new.add(@hash)
-      end
+    validation = proc {|x|}
+    assert_performance validation do |n|
+      @desktop.add(@hash)
     end
   end
 
   def bench_array
-    assert_performance 0.99 do |n|
-      n.times do
-        NotebookTest.new.add(@array)
-      end
+    validation = proc {|x|}
+    assert_performance validation do |n|
+      @notebook.add(@array)
     end
   end
 
   def bench_tree_set
-    assert_performance 0.99 do |n|
-      n.times do
-        NotebookTest.new.add(@tree_set)
-      end
+    validation = proc {|x|}
+    assert_performance validation do |n|
+      @notebook.add(@tree_set)
     end
   end
 end
