@@ -5,13 +5,12 @@ require 'set'
 
 class BenchmarkTest < Minitest::Benchmark
   def setup
-    @brands   = ['HP', 'Acer', 'Apple', 'HP', 'HP']
     @desktop  = Desktop.new
     @notebook = Notebook.new
-    @set      = Set.new(@brands)
-    @hash     = Hash.new(@brands)
-    @array    = Array.new(@brands)
-    @tree_set = SortedSet.new(@brands)
+    @set      = Set.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
+    @hash     = Hash[1, 'HP', 2, 'Acer', 3, 'Apple', 4, 'HP', 5, 'HP']
+    @array    = Array.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
+    @tree_set = SortedSet.new(['HP', 'Acer', 'Apple', 'HP', 'HP'])
   end
 
   def bench_set
