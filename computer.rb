@@ -1,18 +1,18 @@
-require 'benchmark'
 require 'bigdecimal/math'
+require 'benchmark'
 require 'set'
 
 class Computer
-
-  def initialize
-  end
-
   def add(computers)
     return 'Computer is nil' if computers.nil?
     database = []
-    computers.each{ |computer| database << computer }
+    if computers.is_a?(Hash)
+      computers.each { |key, value| database << value }
+    else
+      computers.each { |computer| database << computer }
+    end
+    return database
   end
-
 end
 
 class Desktop < Computer
@@ -21,14 +21,15 @@ end
 class Notebook < Computer
 end
 
-@set =  Set.new ['HP', 'acer', 'mac', 'HP', 'HP']
-@hash = Hash.new ['HP', 'acer', 'mac', 'HP', 'HP']
-@array = Array.new ['HP', 'acer', 'mac', 'HP', 'HP']
-@tree_set = SortedSet.new(['HP', 'acer', 'mac', 'HP', 'HP'])
+@set      = Set.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
+@hash     = Hash[1, 'HP', 2, 'Acer', 3, 'Apple', 4, 'HP', 5, 'HP']
+@array    = Array.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
+@tree_set = SortedSet.new(['HP', 'Acer', 'Apple', 'HP', 'HP'])
+
 # USER CPU   SYS CPU    USR + SYS  Elapsed
-# 0.320000   0.020000   0.340000 (0.343562 )
-#
-puts "USER CPU   SYS CPU    USR + SYS  Elapsed"
+# 0.320000   0.020000   0.340000 (0.343562)
+
+puts "USER-CPU   SYS-CPU   USR+SYS   Elapsed"
 
 puts 'example for set'
 puts Benchmark.measure { Desktop.new.add(@set) }
