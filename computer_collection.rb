@@ -4,6 +4,12 @@ require 'set'
 
 class Computer
   attr_accessor :id, :brand, :model
+
+  def initialize(id, brand, model)
+    @id     = id
+    @brand  = brand
+    @model  = model
+  end
 end
 
 class Desktop < Computer
@@ -12,59 +18,54 @@ end
 class Notebook < Computer
 end
 
-@desktop = Desktop.new
-@desktop.id = 1
-@desktop.brand = 'Apple'
-@desktop.model = 'iMac Pro'
+class StoreSet
 
-@notebook = Notebook.new
-@notebook.id = 2
-@notebook.brand = 'Apple'
-@notebook.model = 'MacBook Pro'
-
-@set = Set.new
-@set.add(@desktop)
-@set.add(@notebook)
-
-time_set = Benchmark.measure do
-  @set.each { |computers| puts computers.to_yaml }
+  @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
+  @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
+  
+  @set = Set.new
+  @set.add(@desktop)
+  @set.add(@notebook)
+  @set.each do |set|
+    puts set.to_yaml
+  end
 end
 
-@hash = Hash.new
-@hash.store('desktop', @desktop)
-@hash.store('notebook', @notebook)
+class StoreList
 
-time_hash = Benchmark.measure do
-  @hash.each { |key, value| puts value.to_yaml }
+  @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
+  @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
+
+  @array = Array.new
+  @array.push(@desktop)
+  @array.push(@notebook)
+
+  @array.each do |array|
+    puts array.to_yaml
+  end
 end
 
-@array = Array.new
-@array.push(@desktop)
-@array.push(@notebook)
+class StoreHash
+  @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
+  @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
 
-time_array = Benchmark.measure do
-  @array.each { |computers| puts computers.to_yaml }
+  @hash = Hash.new
+  @hash.store('desktop', @desktop)
+  @hash.store('notebook', @notebook)
+
+  @hash.each do |key, value|
+    puts value.to_yaml
+  end
 end
 
-@tree_set = SortedSet.new
-@tree_set.add(@desktop)
-@tree_set.add(@notebook)
+class StoreSortSet
+  @desktop_primary  = Desktop.new(1, 'Apple', 'iMac Pro')
+  
+  @sort_set = SortedSet.new
+  @sort_set.add(@desktop_primary)
 
-#time_tree_set = Benchmark.measure do
-  @tree_set.each { |computers| puts computers.to_yaml }
-#end
-
-# User CPU Time     System CPU Time     User CPU + System CPU     Elapsed real time
-# 0.320000          0.020000            0.340000                  (0.343562)
-
-puts 'USER-CPU   SYS-CPU   USER+SYS   Elapsed'
-
-puts 'Example for set'
-puts time_set
-puts 'Example for hash'
-puts time_hash
-puts 'Example for array or list'
-puts time_array
-#puts 'Example for tree_set'
-#puts time_tree_set
+  @sort_set.each do |sort_set|
+    puts sort_set.to_yaml
+  end
+end
 
