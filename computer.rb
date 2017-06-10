@@ -1,17 +1,14 @@
-require 'bigdecimal/math'
 require 'benchmark'
+require 'yaml'
 require 'set'
 
 class Computer
-  def add(computers)
-    return 'Computer is nil' if computers.nil?
-    database = []
-    if computers.is_a?(Hash)
-      computers.each { |key, value| database << value }
-    else
-      computers.each { |computer| database << computer }
-    end
-    return database
+  attr_accessor :id, :brand, :model
+
+  def initialize(id, brand, model)
+    @id     = id
+    @brand  = brand
+    @model  = model
   end
 end
 
@@ -21,22 +18,54 @@ end
 class Notebook < Computer
 end
 
-@set      = Set.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
-@hash     = Hash[1, 'HP', 2, 'Acer', 3, 'Apple', 4, 'HP', 5, 'HP']
-@array    = Array.new ['HP', 'Acer', 'Apple', 'HP', 'HP']
-@tree_set = SortedSet.new(['HP', 'Acer', 'Apple', 'HP', 'HP'])
+class StoreSet
 
-# USER CPU   SYS CPU    USR + SYS  Elapsed
-# 0.320000   0.020000   0.340000 (0.343562)
+  @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
+  @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
+  
+  @set = Set.new
+  @set.add(@desktop)
+  @set.add(@notebook)
+  @set.each do |set|
+    puts set.to_yaml
+  end
+end
 
-puts "USER-CPU   SYS-CPU   USR+SYS   Elapsed"
+class StoreList
 
-puts 'example for set'
-puts Benchmark.measure { Desktop.new.add(@set) }
-puts 'example for array or list'
-puts Benchmark.measure { Desktop.new.add(@array) }
-puts 'example for hash'
-puts Benchmark.measure { Notebook.new.add(@hash) }
-puts 'example for tree_set'
-puts Benchmark.measure { Notebook.new.add(@tree_set) }
+  @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
+  @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
+
+  @array = Array.new
+  @array.push(@desktop)
+  @array.push(@notebook)
+
+  @array.each do |array|
+    puts array.to_yaml
+  end
+end
+
+class StoreHash
+  @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
+  @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
+
+  @hash = Hash.new
+  @hash.store('desktop', @desktop)
+  @hash.store('notebook', @notebook)
+
+  @hash.each do |key, value|
+    puts value.to_yaml
+  end
+end
+
+class StoreSortSet
+  @desktop_primary  = Desktop.new(1, 'Apple', 'iMac Pro')
+  
+  @sort_set = SortedSet.new
+  @sort_set.add(@desktop_primary)
+
+  @sort_set.each do |sort_set|
+    puts sort_set.to_yaml
+  end
+end
 
