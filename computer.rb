@@ -19,20 +19,23 @@ class Notebook < Computer
 end
 
 class StoreSet
-
   @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
   @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
   
   @set = Set.new
   @set.add(@desktop)
   @set.add(@notebook)
-  @set.each do |set|
-    puts set.to_yaml
+
+  time_set = Benchmark.measure do
+    @set.each { |set| puts set.to_yaml }
   end
+
+  puts '  Example for Set'
+  puts '  USER-CPU   SYS-CPU    USER+SYS Elapsed'
+  puts time_set
 end
 
 class StoreList
-
   @desktop  = Desktop.new(1, 'Apple', 'iMac Pro')
   @notebook = Notebook.new(2, 'Apple Notebook', 'iMacBook Pro')
 
@@ -40,9 +43,13 @@ class StoreList
   @array.push(@desktop)
   @array.push(@notebook)
 
-  @array.each do |array|
-    puts array.to_yaml
+  time_list = Benchmark.measure do
+    @array.each { |array| puts array.to_yaml }
   end
+
+  puts '  Example for Array'
+  puts '  USER-CPU   SYS-CPU    USER+SYS Elapsed'
+  puts time_list
 end
 
 class StoreHash
@@ -53,9 +60,13 @@ class StoreHash
   @hash.store('desktop', @desktop)
   @hash.store('notebook', @notebook)
 
-  @hash.each do |key, value|
-    puts value.to_yaml
+  time_hash = Benchmark.measure do
+    @hash.each { |key, value| puts value.to_yaml }
   end
+
+  puts '  Example for Hash'
+  puts '  USER-CPU   SYS-CPU    USER+SYS Elapsed'
+  puts time_hash
 end
 
 class StoreSortSet
@@ -64,8 +75,12 @@ class StoreSortSet
   @sort_set = SortedSet.new
   @sort_set.add(@desktop_primary)
 
-  @sort_set.each do |sort_set|
-    puts sort_set.to_yaml
+  time_sort_set = Benchmark.measure do
+    @sort_set.each { |sort_set| puts sort_set.to_yaml }
   end
+
+  puts '  Example for SortedSet'
+  puts '  USER-CPU   SYS-CPU    USER+SYS Elapsed'
+  puts time_sort_set
 end
 

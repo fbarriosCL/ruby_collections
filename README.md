@@ -34,7 +34,7 @@ go directory
 $ cd ruby_collections/
 ```
 
-And for this example we will execute
+And for the example of Benchmark we will execute
 
 ```
 $ ruby computer.rb
@@ -42,17 +42,58 @@ $ ruby computer.rb
 
 What we are going to do is to know the benchmark of the collections:
 
-```Array  Hash  Set  SortedSet```
+```Set  Array  Hash  SortedSet```
 
-for example: ['HP', 'acer', 'mac', 'HP', 'HP']
+For example: <Desktop: @id=1, @brand="Apple", @model="iMac Pro">
+             <Notebook: @id=2, @brand="Apple Notebook", @model="iMacBook Pro">
 
 ```
-example for set
-  0.000000   0.000000   0.000000 (  0.000017)
-example for array or list
-  0.000000   0.000000   0.000000 (  0.000010)
-example for hash
-  0.000000   0.000000   0.000000 (  0.000011)
-example for tree_set
-  0.000000   0.000000   0.000000 (  0.000013)
+  Example for Set
+  USER-CPU   SYS-CPU    USER+SYS Elapsed
+  0.000000   0.000000   0.000000 (  0.000832)
+
+  Example for Array
+  USER-CPU   SYS-CPU    USER+SYS Elapsed
+  0.000000   0.000000   0.000000 (  0.000456)
+
+  Example for Hash
+  USER-CPU   SYS-CPU    USER+SYS Elapsed
+  0.000000   0.000000   0.000000 (  0.000387)
+
+  Example for SortedSet
+  USER-CPU   SYS-CPU    USER+SYS Elapsed
+  0.000000   0.000000   0.000000 (  0.000224)
+```
+
+And for the example of Add computer we will execute
+
+```
+$ ruby factory.rb
+```
+
+First ask about the type of computer
+```
+Enter any type computer:
+notebook
+```
+
+Then ask about the brand of the computer
+```
+Enter any brand computer:
+Apple
+```
+
+Finally ask about the model of the computer
+```
+Enter any model computer:
+MacBook Pro
+```
+
+The answer will be
+```
+create object
+The object(Notebook) is create with attributes:
+id: 1
+brand: Apple
+model: MacBook Pro
 ```
