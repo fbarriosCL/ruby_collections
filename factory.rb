@@ -2,12 +2,12 @@ require_relative 'computer'
 
 class Factory 
   begin
-    puts 'Enter any type computer'
+    puts 'Enter any type computer:'
     klass = gets.gsub(/\n/,"").capitalize
     Computer.const_get(klass).is_a?(Class)
-    puts 'Enter any brand computer'
+    puts 'Enter any brand computer:'
     brand = gets
-    puts 'Enter any model computer'
+    puts 'Enter any model computer:'
     model = gets
     puts "create object"
     object = Computer.const_get(klass)
@@ -17,6 +17,7 @@ class Factory
     puts "brand: #{input.brand}"
     puts "model: #{input.model}"
   rescue Exception => e
-    puts "error: #{e}"  
+    puts e.message
   end
 end
+
